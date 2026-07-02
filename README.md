@@ -1,29 +1,48 @@
 # Laravel SMS Gateway IPPanel Driver
 
-IPPanel driver package for [`misaf/laravel-sms-gateway`](https://github.com/misaf/laravel-sms-gateway).
+IPPanel SMS gateway driver for [`misaf/laravel-sms-gateway`](https://github.com/misaf/laravel-sms-gateway).
 
 ## Installation
 
 ```bash
-composer require misaf/laravel-sms-gateway misaf/laravel-sms-gateway-ippanel
+composer require misaf/laravel-sms-gateway-ippanel
 ```
 
-Laravel package discovery registers `Misaf\LaravelSmsGatewayIppanel\IppanelSmsGatewayServiceProvider` automatically.
+Laravel package discovery registers the driver service provider automatically.
 
-## Usage
-
-Set the default driver when this provider should be used by default:
+## Configuration
 
 ```env
 SMS_GATEWAY_DRIVER=ippanel
+SMS_GATEWAY_IPPANEL_USERNAME=your-username
+SMS_GATEWAY_IPPANEL_PASSWORD=your-password
 ```
 
-Then configure the provider credentials in `config/services.php` and use the shared facade:
+```php
+// config/services.php
+'ippanel' => [
+    'username' => env('SMS_GATEWAY_IPPANEL_USERNAME'),
+    'password' => env('SMS_GATEWAY_IPPANEL_PASSWORD'),
+],
+```
+
+## Usage
 
 ```php
 use Misaf\LaravelSmsGateway\Facade\SmsGateway;
 
-SmsGateway::driver('ippanel')->request();
+$response = SmsGateway::driver('ippanel')->send([
+    'to'      => '09123456789',
+    'message' => 'Hello',
+]);
+```
+
+The payload is passed directly to IPPanel, so use the fields expected by the IPPanel API.
+
+Use `request()` when you need direct access to Laravel's HTTP client:
+
+```php
+$request = SmsGateway::driver('ippanel')->request();
 ```
 
 ## Testing
