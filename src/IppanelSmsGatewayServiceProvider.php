@@ -24,7 +24,7 @@ final class IppanelSmsGatewayServiceProvider extends PackageServiceProvider
         });
 
         if ($this->app->bound('sms-gateway')) {
-            $this->app->make('sms-gateway')->extend('ippanel', fn(): IppanelDriver => $this->app->make(IppanelDriver::class));
+            $this->app->make('sms-gateway')->extend('ippanel', fn(Application $app): IppanelDriver => $app->make(IppanelDriver::class));
         }
     }
 }
