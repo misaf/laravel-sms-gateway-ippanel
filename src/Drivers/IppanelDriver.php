@@ -5,18 +5,22 @@ declare(strict_types=1);
 namespace Misaf\LaravelSmsGatewayIppanel\Drivers;
 
 use Illuminate\Http\Client\PendingRequest;
+use Illuminate\Http\Client\Response;
 use Misaf\LaravelSmsGateway\SmsGatewayDriver;
 
 final class IppanelDriver extends SmsGatewayDriver
 {
-    protected function driverName(): string
+    /**
+     * @param array<string, mixed> $data
+     */
+    public function send(array $data): Response
     {
-        return 'ippanel';
+        return $this->request()->post('services.jspd', $data);
     }
 
-    protected function defaultGateway(): string
+    protected function defaultBaseUrl(): string
     {
-        return 'https://ippanel.com/services.jspd';
+        return 'https://ippanel.com/';
     }
 
     protected function configureRequest(PendingRequest $request): PendingRequest
@@ -24,8 +28,8 @@ final class IppanelDriver extends SmsGatewayDriver
         return $request
             ->asForm()
             ->withQueryParameters([
-                'uname' => $this->serviceConfigString('username'),
-                'pass'  => $this->serviceConfigString('password'),
+                'uname' => $this->driverConfig('username'),
+                'pass'  => $this->driverConfig('password'),
             ]);
     }
 }

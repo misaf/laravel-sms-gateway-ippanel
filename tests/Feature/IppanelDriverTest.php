@@ -18,14 +18,12 @@ test('ippanel driver sends credentials as query parameters', function (): void {
         'https://ippanel.com/services.jspd*' => Http::response($response, 200),
     ]);
 
-    $result = SmsGateway::driver()->request()
-        ->post('', [
-            'op'      => 'send',
-            'from'    => '3000505',
-            'to'      => '09123456789',
-            'message' => 'Hello from IPPanel',
-        ])
-        ->json();
+    $result = SmsGateway::driver()->send([
+        'op'      => 'send',
+        'from'    => '3000505',
+        'to'      => '09123456789',
+        'message' => 'Hello from IPPanel',
+    ])->json();
 
     Http::assertSent(function (Request $request): bool {
         $query = Uri::of($request->url())->query()->all();
@@ -41,4 +39,21 @@ test('ippanel driver sends credentials as query parameters', function (): void {
     });
 
     expect($result)->toEqual($response);
+});
+
+test('prefers the base URL configured in services over the driver default', function (): void {
+    config()->set('sms_gateway.default', 'ippanel');
+    config()->set('services.ippanel.base_url', 'https://services-override.example.test/');
+
+    Http::fake([
+        'https://services-override.example.test/*' => Http::response(['status' => 'ok'], 200),
+    ]);
+
+    SmsGateway::driver()->send([
+        'message' => 'Hello',
+    ]);
+
+    Http::assertSent(function (Request $request): bool {
+        return 'https://services-override.example.test/services.jspd' === strtok($request->url(), '?');
+    });
 });
