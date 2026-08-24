@@ -31,7 +31,7 @@
         "misaf/laravel-sms-gateway": "^3.0"
     },
     "require-dev": {
-        "guzzlehttp/guzzle": "^7.10",
+        "guzzlehttp/guzzle": "^7.10 || ^8.0",
         "larastan/larastan": "^3.9.2",
         "laravel/pint": "^1.29",
         "mockery/mockery": "^1.6.12",
