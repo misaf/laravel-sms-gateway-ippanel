@@ -5,12 +5,12 @@ declare(strict_types=1);
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Uri;
-use Misaf\LaravelSmsGateway\Facade\SmsGateway;
+use Misaf\LaravelSmsGateway\Facades\SmsGateway;
 
 test('ippanel driver sends credentials as query parameters', function (): void {
-    config()->set('sms_gateway.default', 'ippanel');
-    config()->set('services.ippanel.username', 'ippanel-username');
-    config()->set('services.ippanel.password', 'ippanel-password');
+    config()->set('laravel-sms-gateway.default', 'ippanel');
+    config()->set('laravel-sms-gateway-ippanel.username', 'ippanel-username');
+    config()->set('laravel-sms-gateway-ippanel.password', 'ippanel-password');
 
     $response = ['status' => 'ok'];
 
@@ -41,9 +41,9 @@ test('ippanel driver sends credentials as query parameters', function (): void {
     expect($result)->toEqual($response);
 });
 
-test('prefers the base URL configured in services over the driver default', function (): void {
-    config()->set('sms_gateway.default', 'ippanel');
-    config()->set('services.ippanel.base_url', 'https://services-override.example.test/');
+test('prefers the base URL configured in the driver config over the driver default', function (): void {
+    config()->set('laravel-sms-gateway.default', 'ippanel');
+    config()->set('laravel-sms-gateway-ippanel.base_url', 'https://services-override.example.test/');
 
     Http::fake([
         'https://services-override.example.test/*' => Http::response(['status' => 'ok'], 200),

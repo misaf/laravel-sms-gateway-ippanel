@@ -1,8 +1,8 @@
 {
     "name": "misaf/laravel-sms-gateway-ippanel",
     "description": "IPPanel SMS gateway driver for Laravel.",
-    "type": "library",
     "license": "MIT",
+    "type": "library",
     "keywords": [
         "laravel",
         "laravel-package",
@@ -14,11 +14,6 @@
         "ippanel",
         "ippanel-sms"
     ],
-    "homepage": "https://github.com/misaf/laravel-sms-gateway-ippanel",
-    "support": {
-        "issues": "https://github.com/misaf/laravel-sms-gateway-ippanel/issues",
-        "source": "https://github.com/misaf/laravel-sms-gateway-ippanel"
-    },
     "authors": [
         {
             "name": "Ehsan Mahmoodi",
@@ -26,50 +21,37 @@
             "role": "Developer"
         }
     ],
+    "homepage": "https://github.com/misaf/laravel-sms-gateway-ippanel",
+    "support": {
+        "issues": "https://github.com/misaf/laravel-sms-gateway-ippanel/issues",
+        "source": "https://github.com/misaf/laravel-sms-gateway-ippanel"
+    },
     "require": {
-        "php": "^8.3",
-        "misaf/laravel-sms-gateway": "^3.0"
+        "php": "^8.4",
+        "illuminate/contracts": "^13.0",
+        "illuminate/http": "^13.0",
+        "illuminate/support": "^13.0",
+        "misaf/laravel-sms-gateway": "^1.0",
+        "spatie/laravel-package-tools": "^1.93"
     },
-    "require-dev": {
-        "guzzlehttp/guzzle": "^7.10",
-        "larastan/larastan": "^3.9.2",
-        "laravel/pint": "^1.29",
-        "mockery/mockery": "^1.6.12",
-        "nunomaduro/collision": "^8.8.3",
-        "orchestra/testbench": "^11.0",
-        "pestphp/pest": "^4.3.2",
-        "pestphp/pest-plugin-laravel": "^4.0"
-    },
-    "scripts": {
-        "analyse": "vendor/bin/phpstan analyse",
-        "test": "vendor/bin/pest"
-    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
     "autoload": {
         "psr-4": {
             "Misaf\\LaravelSmsGatewayIppanel\\": "src/"
         }
     },
-    "autoload-dev": {
-        "psr-4": {
-            "Misaf\\LaravelSmsGatewayIppanel\\Tests\\": "tests/"
-        }
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Misaf\\LaravelSmsGatewayIppanel\\IppanelSmsGatewayServiceProvider"
+                "Misaf\\LaravelSmsGatewayIppanel\\Providers\\IppanelServiceProvider"
             ]
         }
     },
-    "config": {
-        "optimize-autoloader": true,
-        "preferred-install": "dist",
-        "sort-packages": true,
-        "allow-plugins": {
-            "pestphp/pest-plugin": true,
-            "php-http/discovery": true
-        }
-    },
-    "minimum-stability": "stable",
-    "prefer-stable": true
+    "$schema": "https://getcomposer.org/schema.json"
 }
