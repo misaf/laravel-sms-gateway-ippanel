@@ -8,9 +8,9 @@ use Illuminate\Support\Uri;
 use Misaf\LaravelSmsGateway\Facades\SmsGateway;
 
 test('ippanel driver sends credentials as query parameters', function (): void {
-    config()->set('laravel-sms-gateway.default', 'ippanel');
-    config()->set('laravel-sms-gateway-ippanel.username', 'ippanel-username');
-    config()->set('laravel-sms-gateway-ippanel.password', 'ippanel-password');
+    config()->set('sms-gateway.default', 'ippanel');
+    config()->set('sms-gateway-ippanel.username', 'ippanel-username');
+    config()->set('sms-gateway-ippanel.password', 'ippanel-password');
 
     $response = ['status' => 'ok'];
 
@@ -42,8 +42,8 @@ test('ippanel driver sends credentials as query parameters', function (): void {
 });
 
 test('prefers the base URL configured in the driver config over the driver default', function (): void {
-    config()->set('laravel-sms-gateway.default', 'ippanel');
-    config()->set('laravel-sms-gateway-ippanel.base_url', 'https://services-override.example.test/');
+    config()->set('sms-gateway.default', 'ippanel');
+    config()->set('sms-gateway-ippanel.base_url', 'https://services-override.example.test/');
 
     Http::fake([
         'https://services-override.example.test/*' => Http::response(['status' => 'ok'], 200),

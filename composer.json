@@ -1,6 +1,6 @@
 {
     "name": "misaf/laravel-sms-gateway-ippanel",
-    "description": "IPPanel SMS gateway driver for Laravel.",
+    "description": "IPPanel SMS gateway driver for Laravel SMS Gateway.",
     "license": "MIT",
     "type": "library",
     "keywords": [
